@@ -1,6 +1,7 @@
 # rock-paper-scissors-game
 
-Player vs. Computer
+Player vs. Computer.
+
 Each side chooses either Rock, Paper, or Scissors
 
 Simple Rules:
