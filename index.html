@@ -5,10 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's Play</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="game.js" defer></script>
+
+  
+  
 </head>
 <body>
+  
+  <!-- announcement column -->
+  <div class="announcement">
+    <h1 class="round">Round 1</h1>
+    <h2 class="winner">Start!</h2>
+  </div>
+  
+  <!-- players column -->
+  <div class="players">
+    
+    <div class="player1">
+      <p class="pokemon">Pikachu Lv15 </p>
+      <div class="myhpBar">
+        <div class="mylife" style="width: 250px"></div>
+      </div>
+      <p class="hp">50/50</p>
+      <div class="pokemonImg1">
+        <img src="assets/pikachu.png" height="190px" class="myImg">
+      </div>
+      <div class="options">
+        <h3> Choose Ability: </h3>
+          <div class="choose">
+            <div class="rock"><p>ROCK</p></div>
+            <div class="paper"><p>PAPER</p></div>
+            <div class="scissor"><p>SCISSOR</p></div>
+        </div>
+    </div>
+    </div>
+  
+  
+      
+    <div class="player2">
+      <p class="pokemon">Cubone Lv15 </p>
+      <div class="enemyhpBar">
+        <div class="enemylife" style="width: 250px"></div>
+      </div>
+      <p class="hp">50/50</p>
+      <div class="pokemonImg2">
+        <img src="assets/cubone.png" height="230" class="enemyImg">
+      </div>
+    </div>
 
-    <script src="game.js"></script>
+  </div>
+
+
+  
+  
+  
+  
+  
+<audio autoplay >
+  <source src="https://vgmsite.com/soundtracks/pokemon-gameboy-sound-collection/gbhogmtx/107-battle%20%28vs%20wild%20pokemon%29.mp3" type="audio/mpeg">
+</audio>
+   
+  
+
+  
+
+    
     
 </body>
 </html>

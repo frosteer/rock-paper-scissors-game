@@ -11,3 +11,9 @@ Simple Rules:
 
 Game will continue for 5 rounds.
 Let's see who is the Ultimate Winner!
+
+
+Image credit:
+1) Cubone https://www.pngegg.com/en/png-khecc
+2) Pikachu https://www.nicepng.com/maxp/u2q8q8t4q8t4w7w7/
+Non-commercial Use

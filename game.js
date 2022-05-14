@@ -3,105 +3,255 @@ let roundArray = [];
 let computerSelection = "";
 let i = 1;
 var newLine = "\r\n"
- 
-function startGame() {
-    let start = prompt("Choose rock, paper, or scissor");
-    if (start.toLowerCase() == "rock" || start.toLowerCase() == "paper" || start.toLowerCase() == "scissor") {
-        playerSelection = start.toLowerCase();
-    } else {
-        startGame();
-    }
-}
 
+// game start
+const rock = document.querySelector(".rock p");
+rock.addEventListener("click", rocky);
 
+function rocky() {
+  playerSelection = "rock";
+  computerPlay();
+  playRound();
+  document.querySelector("audio").play();
+  console.log("rock")
+};
 
+const paper = document.querySelector(".paper p");
+paper.addEventListener("click", papery);
+
+function papery() {
+  playerSelection = "paper";
+  computerPlay();
+  playRound()
+  document.querySelector("audio").play();
+  console.log("paper");
+};
+
+const scissor = document.querySelector(".scissor p");
+scissor.addEventListener("click", scissory);
+
+function scissory() {
+  console.log("scissor")
+  playerSelection = "scissor";
+  computerPlay();
+  playRound();
+  document.querySelector("audio").play();
+};
+
+//audio
+document.querySelector("audio").play();
+
+// computer pick randomly
 let computerPlay = () => {
     let options = ["rock", "paper", "scissor"];
     computerSelection = options[(Math.floor(Math.random()*options.length))];
-    alert("Computer chose " + computerSelection + "!")
+    
+  ;
+}
+let sentence = document.querySelector(".announcement .winner");
+let mainSentence = document.querySelector(".announcement .round");
+
+//my life condition
+
+let myHPLeft = 50
+let myLife = myHPLeft + "/50"
+let myLifeAmount = document.querySelector(".player1 .hp")
+
+function resetMyLife(){
+  myHPLeft -= 10
+  myLife = myHPLeft + "/50"
+  myLifeAmount.innerText = myLife;
+}
+
+let mytotalHP = document.querySelector(".mylife");
+let myStyle = mytotalHP.setAttribute('style', 'width: 250px;');
+
+// enemy life condition
+let enemyHPLeft = 50
+let enemyLife = enemyHPLeft + "/50"
+let enemyLifeAmount = document.querySelector(".player2 .hp")
+
+function resetEnemyLife(){
+  enemyHPLeft -= 10
+  enemyLife = enemyHPLeft + "/50"
+  enemyLifeAmount.innerText = enemyLife;
+}
+
+let enemytotalHP = document.querySelector(".enemylife");
+let enemyStyle = enemytotalHP.setAttribute('style', 'width: 250px;');
+
+// pikachu attack animation
+let pikachu = document.querySelector('.myImg')
+
+function pikachuGo() {
+  pikachu.classList.add('pikachuGo');
+  setTimeout(pikachuBack, 200);
+  setTimeout(resetPikachu, 100);
+}
+
+function pikachuBack() {
+  pikachu.classList.add('pikachuBack');
+}
+
+function resetPikachu() {
+  pikachu.classList.remove('pikachuBack');
+}
+
+// cubone attack animation
+let cubone = document.querySelector('.enemyImg')
+
+function cuboneGo() {
+  cubone.classList.add('cuboneGo');
+  setTimeout(cuboneBack, 200);
+  setTimeout(resetCubone, 100);
+}
+
+function cuboneBack() {
+  cubone.classList.add('cuboneBack');
+}
+
+function resetCubone() {
+  cubone.classList.remove('cuboneBack');
 }
 
 
 
+
+
+
+// enemy attack function
+let enemyAttack = () => {
+  resetMyLife();
+  cuboneGo();
+  if (myHPLeft == 40) {myStyle = mytotalHP.setAttribute('style', 'width: 200px;')};
+  if (myHPLeft == 30) {myStyle = mytotalHP.setAttribute('style', 'width: 150px;')};
+  if (myHPLeft == 20) {myStyle = mytotalHP.setAttribute('style', 'width: 100px;')};
+  if (myHPLeft == 10) {myStyle = mytotalHP.setAttribute('style', 'width: 50px;')};
+  if (myHPLeft == 0) {
+    myStyle = mytotalHP.setAttribute('style', 'width: 0px;');
+    sentence.innerText = "Cubone Wins! Better Luck Next Time! "
+    
+    rock.removeEventListener("click", rocky);
+    paper.removeEventListener("click", papery);
+    scissor.removeEventListener("click", scissory);
+    }
+};
+
+// my attack function
+let myAttack = () => {
+  resetEnemyLife();
+  pikachuGo();
+  
+  
+  if (enemyHPLeft == 40) {enemyStyle = enemytotalHP.setAttribute('style', 'width: 200px;')};
+  if (enemyHPLeft == 30) {enemyStyle = enemytotalHP.setAttribute('style', 'width: 150px;')};
+  if (enemyHPLeft == 20) {enemyStyle = enemytotalHP.setAttribute('style', 'width: 100px;')};
+  if (enemyHPLeft == 10) {enemyStyle = enemytotalHP.setAttribute('style', 'width: 50px;')};
+  if (enemyHPLeft == 0) {
+    enemyStyle = enemytotalHP.setAttribute('style', 'width: 0px;');
+    sentence.innerText = "Pikachu Wins! Bravo! "
+     
+    rock.removeEventListener("click", rocky);
+    paper.removeEventListener("click", papery);
+    scissor.removeEventListener("click", scissory);
+    }
+  
+};
+
+//win Condition
+let draw = () => {
+  sentence.innerText = "Cubone use " + computerSelection + ". But, nothing happened.";
+          i++;
+        
+          const myloseTimeOut = setTimeout(myloseSentence, 2000);
+
+          function myloseSentence() {
+          sentence.innerText = "Pikachu use " + playerSelection +". Nothing happened."
+           mainSentence.innerText = "Round" + " " + i; 
+          }
+          
+  
+};
+
+let computerWin = () => {
+  sentence.innerText = "Cubone use " + computerSelection + ". It's super effective!";
+          i++;
+          
+          const myloseTimeOut = setTimeout(myloseSentence, 2000);
+
+          function myloseSentence() {
+          sentence.innerText = "Pikachu use " + playerSelection +". Nothing happened."
+            
+            enemyAttack();
+            mainSentence.innerText = "Round" + " " + i; 
+          };
+          
+          
+};
+
+let playerWin = () => {
+  sentence.innerText = "Cubone use " + computerSelection + ". Nothing happened";
+          i++;
+          const myloseTimeOut = setTimeout(myloseSentence, 2000);
+          
+          function myloseSentence() {
+          sentence.innerText = "Pikachu use " + playerSelection +". It's super effective."
+            
+            myAttack();
+            mainSentence.innerText = "Round" + " " + i; 
+          };
+};
+
+
+
+
+// play the game
 let playRound = () => {
     if (playerSelection == "rock") {
-        if (computerSelection == "rock"){ alert("Round " + i  + newLine + "Draw!"); roundArray.push("Draw!"); i++;};
-        if (computerSelection == "paper") {alert("Round " + i +  newLine + "Computer Wins! Paper Beats Rock"); roundArray.push("Computer Wins!"); i++;};
-        if (computerSelection == "scissor") {alert("Round " + i + newLine + "You Win! Rock Beats Scissor"); roundArray.push("You Win!"); i++;};
-        
+        if (computerSelection == "rock"){ 
+          draw()
+        }
     }
-
+    if (playerSelection == "rock") {
+         if (computerSelection == "paper"){ 
+           computerWin()
+         }
+    }
+    if (playerSelection == "rock") {
+         if (computerSelection == "scissor"){ 
+           playerWin()
+         }
+    }
+  
+  if (playerSelection == "paper") {
+        if (computerSelection == "rock"){ 
+          playerWin()
+        }
+    }
     if (playerSelection == "paper") {
-        if (computerSelection == "rock") {alert("Round " + i  + newLine + "You Win! Paper Beats Rock"); roundArray.push("You Win!")};
-        if (computerSelection == "paper") { alert("Round " + i  + newLine + "Draw!"); roundArray.push("Draw!")};
-        if (computerSelection == "scissor") {alert("Round " + i  + newLine + "Computer Wins! Scissor Beats Paper"); roundArray.push("Computer Wins!")};
-        i++;
+         if (computerSelection == "paper"){ 
+           draw()
+         }
     }
-
+    if (playerSelection == "paper") {
+         if (computerSelection == "scissor"){ 
+           computerWin()
+         }
+    }
+  
+  if (playerSelection == "scissor") {
+        if (computerSelection == "rock"){ 
+          computerWin()
+        }
+    }
     if (playerSelection == "scissor") {
-        if (computerSelection == "rock") {alert("Round " + i  + newLine + "Computer Wins! Rock Beats Scissor"); roundArray.push("Computer Wins!")};
-        if (computerSelection == "paper") {alert("Round " + i  + newLine + "You Win! Scissor Beats Paper"); roundArray.push("You Win!")};
-        if (computerSelection == "scissor") { alert("Round " + i  + newLine + "Draw!"); roundArray.push("Draw!")};
-        i++;
+         if (computerSelection == "paper"){ 
+           playerWin()
+         }
     }
-}
-
-
-
-
-let gameWinner = () => {
-    while (roundArray.length < 5) {
-        startGame();
-        computerPlay();
-        playRound();
+    if (playerSelection == "scissor") {
+         if (computerSelection == "scissor"){ 
+           draw()
+         }
     }
-    let playerWinCount = roundArray.filter(x => x == "You Win!").length;
-    let computerWinCount = roundArray.filter(x => x == "Computer Wins!").length;
-
-    
-    if (playerWinCount > computerWinCount) {
-        alert("Congratulations! You Are The Ultimate Winner!" + newLine + roundArray + newLine + newLine +"Reload to play again");
-    } else if (playerWinCount < computerWinCount) {
-        alert("Computer Wins This Time. Let's Try Again!" + newLine + roundArray + newLine + newLine +"Reload to play again");
-    } else {
-        alert("Wow, It's A Draw. Let's Try Again!" + newLine  + roundArray + newLine + newLine +"Reload to play again");
-    }
-}
-
-gameWinner();
-
-
-/*
-PROGRAM startGame
-    prompt window
-    let player input rock, paper, or scissors // case insensitive
-        if true, then define playerSelection
-        if false, then prompt window again.
-END PROGRRAM // done
-
-PROGRAM computerPlay
-    randomly return either rock, paper, or scissors (rps)
-    define array options = [rps]
-    define computerSelection = choice[Math.Floor(Math.random() * choices.length)];
-    return computerSelection 
-END PROGRAM // done
-
-PROGRAM playRound
-    compare playerSelection vs. computerSelection
-        use switch
-            case r
-                if computer choose rock; status = draw,
-                if computer choose paper; status  = lose,
-                if computer choose scissors; status =  win,
-            
-        push status array
-    return winner "You Lose! Paper Beats Rock"
-END PROGRAM // done
-
-PROGRAM gameWinner
-    playRound loop 5 times
-    each round display: round number and round result
-    check status array, if win>lose = ultimate winner, or draw
-    end of 5 rounds display: round number, round result, and ultimate winner
-END PROGRAM
-*/
+};
